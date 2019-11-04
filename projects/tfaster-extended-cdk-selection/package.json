@@ -1,0 +1,7 @@
+{
+  "name": "@tfaster/extended-cdk-selection",
+  "version": "0.0.1",
+  "peerDependencies": {
+    "@angular/cdk": "^8.0.0"
+  }
+}

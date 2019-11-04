@@ -1,0 +1,31 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  padding: 24px;
+}
+
+table {
+  outline: none;
+  flex: 1 1 0%;
+  user-select: none;
+  margin-bottom: 24px;
+
+  tr {
+    cursor: pointer;
+    &.selected {
+      background-color: #607D8B;
+      &:hover {
+        background-color: #6d8d9c;
+      }
+    }
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.03);
+    }
+  }
+}
+
+table:focus {
+  tr.focused {
+    outline: 2px solid #e91e63;
+  }
+}
