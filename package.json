@@ -1,6 +1,6 @@
 {
   "name": "@tfaster/extended-cdk-selection",
-  "version": "0.0.0",
+  "version": "1.0.0-alpha.1",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -9,6 +9,7 @@
     "lint": "ng lint tfaster-extended-cdk-selection",
     "e2e": "ng e2e"
   },
+  "license": "MIT",
   "private": true,
   "dependencies": {
     "@angular/animations": "~8.2.9",
