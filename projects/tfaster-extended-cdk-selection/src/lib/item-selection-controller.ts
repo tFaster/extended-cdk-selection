@@ -1,4 +1,3 @@
-import { A, DOWN_ARROW, SPACE, UP_ARROW } from '@angular/cdk/keycodes';
 import { SelectionModel } from '@angular/cdk/collections';
 import { ItemSelectionModel } from './item-selection-model';
 
@@ -28,15 +27,15 @@ export class ItemSelectionController<T> {
 
   public handleKeyboardEvent(event: KeyboardEvent): boolean {
     let eventHandled: boolean = false;
-    switch (event.keyCode) {
-      case DOWN_ARROW:
-      case UP_ARROW:
+    switch (event.key) {
+      case 'ArrowDown':
+      case 'ArrowUp':
         eventHandled = this._handleKeyboardArrowEvent(event);
         break;
-      case SPACE:
+      case ' ':
         eventHandled = this._handleSpaceKeyEvent(event);
         break;
-      case A:
+      case 'a':
         if (event.ctrlKey) {
           eventHandled = this._itemSelectionModel.selectAll();
         }
@@ -81,7 +80,9 @@ export class ItemSelectionController<T> {
     } else if (shiftKey) {
       this._itemSelectionModel.selectRangeFromFocusedItem(itemData, true);
     } else {
-      if (!this._itemSelectionModel.isOnlySelectedItem(itemData)) {
+      if (this._itemSelectionModel.isOnlySelectedItem(itemData)) {
+        this._itemSelectionModel.focusedItem = itemData;
+      } else {
         this._itemSelectionModel.selectItem(itemData, true);
       }
     }

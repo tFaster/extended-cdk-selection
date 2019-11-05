@@ -1,48 +1,142 @@
 <h2>Extended CDK Selection Demo</h2>
 
-<table class="mat-elevation-z8"
-       tabindex="0"
-       mat-table
-       [dataSource]="dataSource"
-       (keydown)="onTableKeydown($event)">
+<main>
+  <table class="demo-table mat-elevation-z8"
+         tabindex="0"
+         mat-table
+         [dataSource]="dataSource"
+         (keydown)="onTableKeydown($event)"
+         #demoTable>
 
-  <!-- Position Column -->
-  <ng-container matColumnDef="position">
-    <th mat-header-cell *matHeaderCellDef> No.</th>
-    <td mat-cell *matCellDef="let element"> {{element.position}} </td>
-  </ng-container>
+    <!-- Position Column -->
+    <ng-container matColumnDef="position">
+      <th mat-header-cell *matHeaderCellDef> No.</th>
+      <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+    </ng-container>
 
-  <!-- Name Column -->
-  <ng-container matColumnDef="name">
-    <th mat-header-cell *matHeaderCellDef> Name</th>
-    <td mat-cell *matCellDef="let element"> {{element.name}} </td>
-  </ng-container>
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef> Name</th>
+      <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+    </ng-container>
 
-  <!-- Weight Column -->
-  <ng-container matColumnDef="weight">
-    <th mat-header-cell *matHeaderCellDef> Weight</th>
-    <td mat-cell *matCellDef="let element"> {{element.weight}} </td>
-  </ng-container>
+    <!-- Weight Column -->
+    <ng-container matColumnDef="weight">
+      <th mat-header-cell *matHeaderCellDef> Weight</th>
+      <td mat-cell *matCellDef="let element"> {{element.weight}} </td>
+    </ng-container>
 
-  <!-- Symbol Column -->
-  <ng-container matColumnDef="symbol">
-    <th mat-header-cell *matHeaderCellDef> Symbol</th>
-    <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
-  </ng-container>
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="symbol">
+      <th mat-header-cell *matHeaderCellDef> Symbol</th>
+      <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
+    </ng-container>
 
-  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns;"
-      [ngClass]="{'focused': isFocused(row), 'selected': isSelected(row)}"
-      (click)="onItemClick(row, $event)">
-  </tr>
-</table>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+        [ngClass]="{'focused': isFocused(row), 'selected': isSelected(row)}"
+        (click)="onItemClick(row, $event)">
+    </tr>
+  </table>
 
-<mat-card class="demo-controls">
-  <mat-card-content>
-    <p>Number of selected items: {{numberOfSelectedItems}}</p>
-  </mat-card-content>
-  <mat-card-actions>
-    <button mat-raised-button color="primary" (click)="loadData()">Reload Data</button>
-  </mat-card-actions>
-</mat-card>
+  <aside>
+    <mat-card class="demo-controls mat-elevation-z8">
+      <mat-card-content>
+        <h3>Keyboard Selection</h3>
+        <table class="selection-options">
+          <tr>
+            <td><span class="keyboard-key">&darr;</span>/<span class="keyboard-key">&uarr;</span></td>
+            <td>Select next or previous item, current selection is cleared</td>
+            <td>
+              <button mat-raised-button color="primary" (click)="simulator.runArrowDownUp()">Run demo</button>
+            </td>
+          </tr>
+          <tr>
+            <td><span class="keyboard-key">Ctrl</span>+<span class="keyboard-key">&uarr;</span>/<span
+              class="keyboard-key">&darr;</span></td>
+            <td>Move focus to next or previous item only</td>
+            <td>
+              <button mat-raised-button color="primary" (click)="simulator.runCtrlArrowDownUp()">Run demo</button>
+            </td>
+          </tr>
+          <tr>
+            <td><span class="keyboard-key">Shift</span>+<span class="keyboard-key">&uarr;</span>/<span
+              class="keyboard-key">&darr;</span></td>
+            <td>Range select next or previous item, current selection is cleared</td>
+            <td>
+              <button mat-raised-button color="primary" (click)="simulator.runShiftArrowDownUp()">Run demo</button>
+            </td>
+          </tr>
+          <tr>
+            <td><span class="keyboard-key">Ctrl</span>+<span class="keyboard-key">Shift</span>+<span
+              class="keyboard-key">&uarr;</span>/<span class="keyboard-key">&darr;</span></td>
+            <td>Range select next or previous item, adding to current selection</td>
+            <td>
+              <button mat-raised-button color="primary" (click)="simulator.runCtrlShiftArrowDownUp()">Run demo</button>
+            </td>
+          </tr>
+          <tr>
+            <td><span class="keyboard-key">Space</span></td>
+            <td>Select focused item, current selection is cleared</td>
+            <td>
+              <button mat-raised-button color="primary" (click)="simulator.runSpace()">Run demo</button>
+            </td>
+          </tr>
+          <tr>
+            <td><span class="keyboard-key">Ctrl</span>+<span class="keyboard-key">Space</span></td>
+            <td>Toggle focused item, current selection is not cleared</td>
+            <td>
+              <button mat-raised-button color="primary" (click)="simulator.runCtrlSpace()">Run demo</button>
+            </td>
+          </tr>
+          <tr>
+            <td><span class="keyboard-key">Ctrl</span>+<span class="keyboard-key">A</span></td>
+            <td>Select all items</td>
+            <td>
+              <button mat-raised-button color="primary" (click)="simulator.runCtrlA()">Run demo</button>
+            </td>
+          </tr>
+        </table>
+        <h3>Mouse & Keyboard Selection</h3>
+        <table class="selection-options">
+          <tr>
+            <td><span class="mouse-click-symbol"></span></td>
+            <td>Select item, current selection is cleared</td>
+            <td>
+              <button mat-raised-button color="primary" (click)="simulator.runClick()">Run demo</button>
+            </td>
+          </tr>
+          <tr>
+            <td><span class="keyboard-key">Ctrl</span>+<span class="mouse-click-symbol"></span></td>
+            <td>Toggle item, current selection is not cleared</td>
+            <td>
+              <button mat-raised-button color="primary" (click)="simulator.runCtrlClick()">Run demo</button>
+            </td>
+          </tr>
+          <tr>
+            <td><span class="keyboard-key">Shift</span>+<span class="mouse-click-symbol"></span></td>
+            <td>Range select from focused item until clicked item, current selection is cleared</td>
+            <td>
+              <button mat-raised-button color="primary" (click)="simulator.runShiftClick()">Run demo</button>
+            </td>
+          </tr>
+          <tr>
+            <td><span class="keyboard-key">Ctrl</span>+<span class="keyboard-key">Shift</span>+<span
+              class="mouse-click-symbol"></span></td>
+            <td>Range select from focused item until clicked item, adding to current selection</td>
+            <td>
+              <button mat-raised-button color="primary" (click)="simulator.runCtrlShiftClick()">Run demo</button>
+            </td>
+          </tr>
+        </table>
+        <h3>Status</h3>
+        <p>Number of selected items: {{numberOfSelectedItems}}</p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-raised-button color="primary" (click)="loadData()">Reload Data</button>
+      </mat-card-actions>
+    </mat-card>
+  </aside>
+
+</main>
 

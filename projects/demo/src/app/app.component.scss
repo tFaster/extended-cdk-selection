@@ -4,7 +4,18 @@
   padding: 24px;
 }
 
-table {
+main {
+  flex: 1 1 0%;
+  display: flex;
+}
+
+aside {
+  flex: 1 1 0%;
+  padding-left: 24px;
+  max-width: 650px;
+}
+
+table.demo-table {
   outline: none;
   flex: 1 1 0%;
   user-select: none;
@@ -12,20 +23,64 @@ table {
 
   tr {
     cursor: pointer;
+
     &.selected {
       background-color: #607D8B;
+
       &:hover {
         background-color: #6d8d9c;
       }
     }
+
+    &.focused {
+      outline: 3px solid #e91e63;
+    }
+
     &:hover {
       background-color: rgba(255, 255, 255, 0.03);
     }
   }
 }
 
-table:focus {
-  tr.focused {
-    outline: 2px solid #e91e63;
+mat-card {
+  margin-bottom: 24px;
+}
+
+table.selection-options {
+  tr:hover {
+    background-color: rgba(255, 255, 255, 0.03);
   }
+
+  td:not(:last-child) {
+    padding: 8px 8px;
+    vertical-align: text-top;
+  }
+
+  td:first-child {
+    text-align: right;
+    white-space: nowrap;
+  }
+}
+
+.mouse-click-symbol::after {
+  content: '🖰 click';
+  margin: 0 2px;
+  background-color: #e1e3e5;
+  padding: 1px 6px;
+  color: #242729;
+  border-radius: 2px;
+}
+
+.keyboard-key {
+  display: inline-block;
+  margin: 0 2px;
+  padding: 1px 6px;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #242729;
+  background-color: #e1e3e5;
+  border: 1px solid #adb3b9;
+  border-radius: 3px;
+  box-shadow: 0 1px 0 rgba(12, 13, 14, 0.2), 0 0 0 2px #FFF inset;
+  white-space: nowrap;
 }

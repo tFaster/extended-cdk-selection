@@ -1,6 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { ItemSelectionController } from '../../../tfaster-extended-cdk-selection/src/lib/item-selection-controller';
-import { MatTableDataSource } from '@angular/material/table';
+import { MatTable, MatTableDataSource } from '@angular/material/table';
+import { Observable, pipe, timer, UnaryFunction } from 'rxjs';
+import { delay, tap } from 'rxjs/operators';
+import { InteractionSimulatorService } from './interaction-simulator.service';
 
 export interface PeriodicElement {
   name: string;
@@ -14,23 +17,27 @@ export interface PeriodicElement {
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, AfterViewInit {
+
+  @ViewChild('demoTable', {static: false})
+  private _demoTable: MatTable<PeriodicElement>;
+  private _demoRowElements: HTMLElement[];
 
   displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
   dataSource: MatTableDataSource<PeriodicElement>;
 
   private selectionController: ItemSelectionController<PeriodicElement>;
 
-  constructor() {
+  constructor(public simulator: InteractionSimulatorService<PeriodicElement>) {
     this.selectionController = new ItemSelectionController<PeriodicElement>([], 'name');
   }
 
   public ngOnInit(): void {
-    this.loadData();
+    this.loadData(false);
   }
 
-  loadData() {
-    const loadedData: PeriodicElement[]  = [
+  loadData(initSimulator: boolean = true) {
+    const loadedData: PeriodicElement[] = [
       {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
       {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
       {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
@@ -44,6 +51,9 @@ export class AppComponent implements OnInit {
     ];
     this.dataSource = new MatTableDataSource<PeriodicElement>(loadedData);
     this.selectionController.updateDataSource(this.dataSource.data);
+    if (initSimulator) {
+      this._initSimulator();
+    }
   }
 
   onTableKeydown(event: KeyboardEvent): void {
@@ -65,4 +75,14 @@ export class AppComponent implements OnInit {
   get numberOfSelectedItems(): number {
     return this.selectionController.selectionModel.selectedItems.length;
   }
+
+  public ngAfterViewInit(): void {
+    this._initSimulator();
+  }
+
+  private _initSimulator() {
+    const demoRowElements: HTMLElement[] = this._demoTable._getRenderedRows(this._demoTable._rowOutlet);
+    this.simulator.init(demoRowElements, this._demoTable)
+  }
+
 }
