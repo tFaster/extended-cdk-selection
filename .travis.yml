@@ -11,7 +11,7 @@ before_script:
 script:
   - ng lint
   - ng test tfaster-extended-cdk-selection --watch false --browsers ChromeHeadless
-  - ng build --prod --base-href https://github.com/tFaster/tfaster-extended-cdk-selection/
+  - ng build --prod --base-href https://github.com/tFaster/extended-cdk-selection/
 deploy:
   provider: pages
   skip_cleanup: true # To avoid cleanup of the artifact generated during script
