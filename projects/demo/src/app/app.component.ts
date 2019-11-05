@@ -1,8 +1,6 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { ItemSelectionController } from '../../../tfaster-extended-cdk-selection/src/lib/item-selection-controller';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
-import { Observable, pipe, timer, UnaryFunction } from 'rxjs';
-import { delay, tap } from 'rxjs/operators';
 import { InteractionSimulatorService } from './interaction-simulator.service';
 
 export interface PeriodicElement {
@@ -82,7 +80,7 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   private _initSimulator() {
     const demoRowElements: HTMLElement[] = this._demoTable._getRenderedRows(this._demoTable._rowOutlet);
-    this.simulator.init(demoRowElements, this._demoTable)
+    this.simulator.init(demoRowElements, this._demoTable);
   }
 
 }

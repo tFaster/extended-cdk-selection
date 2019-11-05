@@ -14,7 +14,7 @@ export class ItemSelectionModel<T> {
   public readonly focusChange$ = this._focusChange$.asObservable();
 
   constructor(private _itemList: T[],
-              private _identityProperty: string = undefined,
+              private _identityProperty?: string,
               private _cdkSelectionModel: SelectionModel<T> = new SelectionModel<T>()) {
   }
 
@@ -27,15 +27,15 @@ export class ItemSelectionModel<T> {
 
   public isFocused(itemData: T): boolean {
     return itemData === this._focusedItem;
-  };
+  }
 
   public isSelected(itemData: T): boolean {
     return this._cdkSelectionModel.isSelected(itemData);
-  };
+  }
 
   public isAllSelected(): boolean {
     return this.selectedItems.length === this._itemList.length;
-  };
+  }
 
   public selectAll(): boolean {
     if (this._itemList.length !== this.selectedItems.length) {
@@ -48,7 +48,7 @@ export class ItemSelectionModel<T> {
       return true;
     }
     return false;
-  };
+  }
 
   public clear(): boolean {
     if (this.selectedItems.length > 0) {
@@ -60,7 +60,7 @@ export class ItemSelectionModel<T> {
 
   public get selectedItems(): T[] {
     return this._cdkSelectionModel.selected;
-  };
+  }
 
   public set selectedItems(newSelection: T[]) {
     const currentSelection = this.selectedItems;
@@ -83,14 +83,14 @@ export class ItemSelectionModel<T> {
 
   public get focusedItem(): T {
     return this._focusedItem;
-  };
+  }
 
   public set focusedItem(itemData: T) {
     if (!this.isFocused(itemData)) {
       this._focusedItem = itemData;
       this._focusChange$.next(this._focusedItem);
     }
-  };
+  }
 
   public toggleItem(itemData: T): void {
     this.focusedItem = itemData;
@@ -100,7 +100,7 @@ export class ItemSelectionModel<T> {
     const addedItems: T[] = isAdded ? [itemData] : [];
     const removedItems: T[] = isAdded ? [] : [itemData];
     this._notifySelectionChange(addedItems, removedItems);
-  };
+  }
 
   public selectItem(itemData: T, clearOthers: boolean): void {
     this.focusedItem = itemData;
@@ -123,19 +123,18 @@ export class ItemSelectionModel<T> {
       this._cdkSelectionModel.select(itemData);
       this._notifySelectionChange([itemData], removedItems);
     }
-  };
+  }
 
   public isOnlySelectedItem(itemData: T): boolean {
     return this.selectedItems.length === 1 && this.selectedItems[0] === itemData;
   }
 
   public selectRangeFromFocusedItem(itemData: T, clearOthers: boolean): void {
-
     const rangeSelectStartItemIndex: number = this._itemList.indexOf(this._rangeSelectStartItem);
     const itemDataIndex: number = this._itemList.indexOf(itemData);
     this.focusedItem = itemData;
     this._selectRange(itemDataIndex, rangeSelectStartItemIndex, clearOthers);
-  };
+  }
 
   private _selectRange(itemDataIndex: number,
                        rangeStartIndex: number,
@@ -204,8 +203,8 @@ export class ItemSelectionModel<T> {
 
   private _notifySelectionChange(addedItems: T[], removedItems: T[]): void {
     this._selectionChange$.next({
-      addedItems: addedItems,
-      removedItems: removedItems,
+      addedItems,
+      removedItems,
       selectedItems: this.selectedItems,
       focusedItem: this._focusedItem
     });

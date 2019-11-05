@@ -26,7 +26,7 @@ export class ItemSelectionController<T> {
   }
 
   public handleKeyboardEvent(event: KeyboardEvent): boolean {
-    let eventHandled: boolean = false;
+    let eventHandled = false;
     switch (event.key) {
       case 'ArrowDown':
       case 'ArrowUp':

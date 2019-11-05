@@ -78,7 +78,7 @@ export class InteractionSimulatorService<T> {
       this.dispatchKeyboardSpace(),
       this.dispatchKeyboardArrow('ArrowUp', true),
       this.dispatchKeyboardArrow('ArrowUp', true),
-      this.dispatchKeyboardSpace(),
+      this.dispatchKeyboardSpace()
     ).subscribe(() => {
     });
   }
@@ -94,7 +94,7 @@ export class InteractionSimulatorService<T> {
       this.dispatchKeyboardSpace(true),
       this.dispatchKeyboardArrow('ArrowUp', true),
       this.dispatchKeyboardArrow('ArrowUp', true),
-      this.dispatchKeyboardSpace(true),
+      this.dispatchKeyboardSpace(true)
     ).subscribe(() => {
     });
   }
@@ -104,7 +104,7 @@ export class InteractionSimulatorService<T> {
       tap(() => {
         const event: KeyboardEvent = new KeyboardEvent('keydown', {key: 'a', shiftKey: false, ctrlKey: true});
         this._tableHtmlElement.dispatchEvent(event);
-      }),
+      })
     ).subscribe(() => {
     });
   }
@@ -153,20 +153,24 @@ export class InteractionSimulatorService<T> {
     });
   }
 
-  dispatchClick(rowElem: HTMLElement, ctrlKey: boolean = false, shiftKey: boolean = false): UnaryFunction<Observable<any>, Observable<any>> {
+  dispatchClick(rowElem: HTMLElement,
+                ctrlKey: boolean = false,
+                shiftKey: boolean = false): UnaryFunction<Observable<any>, Observable<any>> {
     return pipe(
       tap(() => {
-        const event: MouseEvent = new MouseEvent('click', {shiftKey: shiftKey, ctrlKey: ctrlKey});
+        const event: MouseEvent = new MouseEvent('click', {shiftKey, ctrlKey});
         rowElem.dispatchEvent(event);
       }),
       delay(800)
     );
   }
 
-  dispatchKeyboardArrow(key: 'ArrowDown' | 'ArrowUp', ctrlKey: boolean = false, shiftKey: boolean = false): UnaryFunction<Observable<any>, Observable<any>> {
+  dispatchKeyboardArrow(key: 'ArrowDown' | 'ArrowUp',
+                        ctrlKey: boolean = false,
+                        shiftKey: boolean = false): UnaryFunction<Observable<any>, Observable<any>> {
     return pipe(
       tap(() => {
-        const event: KeyboardEvent = new KeyboardEvent('keydown', {key: key, shiftKey: shiftKey, ctrlKey: ctrlKey});
+        const event: KeyboardEvent = new KeyboardEvent('keydown', {key, shiftKey, ctrlKey});
         this._tableHtmlElement.dispatchEvent(event);
       }),
       delay(400)
@@ -176,7 +180,7 @@ export class InteractionSimulatorService<T> {
   dispatchKeyboardSpace(ctrlKey: boolean = false, shiftKey: boolean = false): UnaryFunction<Observable<any>, Observable<any>> {
     return pipe(
       tap(() => {
-        const event: KeyboardEvent = new KeyboardEvent('keydown', {key: ' ', shiftKey: shiftKey, ctrlKey: ctrlKey});
+        const event: KeyboardEvent = new KeyboardEvent('keydown', {key: ' ', shiftKey, ctrlKey});
         this._tableHtmlElement.dispatchEvent(event);
       }),
       delay(400)
