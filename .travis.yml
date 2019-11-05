@@ -11,11 +11,11 @@ before_script:
 script:
   - ng lint
   - ng test tfaster-extended-cdk-selection --watch false --browsers ChromeHeadless
-  - ng build --prod --base-href https://github.com/tFaster/extended-cdk-selection/
+  - ng build demo --prod --base-href https://github.com/tFaster/extended-cdk-selection/
 deploy:
   provider: pages
   skip_cleanup: true # To avoid cleanup of the artifact generated during script
   github_token: $GITHUB_TOKEN # Provided as an environment variable in travis
-  local_dir: dist/tfaster-extended-cdk-selection # Replace this with your project name
+  local_dir: dist/demo
   on:
     branch: master
