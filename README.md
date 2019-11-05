@@ -15,7 +15,7 @@ It provides a controller for data tables and lists adding mouse and keyboard sel
 |Ctrl+A|Select all items|  
   
   
-###^Mouse & Keyboard Selection  
+### Mouse & Keyboard Selection  
 |  |  |  
 |--|--|  
 |Click|Select item, current selection is cleared|  
