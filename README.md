@@ -6,8 +6,11 @@
 # Extended CDK Selection
 
 This is an enhancement for the Angular CDK SelectionModel implementation.
-It provides a controller for data tables and lists adding mouse and keyboard selection like other well known applications (i.e. Outlook, Windows file Explorer)
+It provides a controller for data tables and lists adding mouse and keyboard selection. The behavior is just like in other well known applications, such as email selection in Microsoft Outlook or file selection in Windows file Explorer.
 
+**Check out the [Demo](https://tfaster.github.io/extended-cdk-selection/) with feature simulation.**
+
+## Features
 ### Keyboard Navigation & Selection  
 |  |  |  
 |--|--|  
