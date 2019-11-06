@@ -11,7 +11,7 @@ before_script:
 script:
   - ng lint
   - ng test tfaster-extended-cdk-selection --watch=false --browsers=ChromeHeadless --codeCoverage=true
-  - ng build demo tfaster-extended-cdk-selection --prod
+  - ng build tfaster-extended-cdk-selection --prod
   - ng build demo --prod --base-href https://tfaster.github.io/extended-cdk-selection/
 after_success:
   - codecov
