@@ -10,8 +10,11 @@ before_script:
   - npm install -g @angular/cli
 script:
   - ng lint
-  - ng test tfaster-extended-cdk-selection --watch false --browsers ChromeHeadless
+  - ng test tfaster-extended-cdk-selection --watch=false --browsers=ChromeHeadless --codeCoverage=true
+  - ng build demo tfaster-extended-cdk-selection --prod
   - ng build demo --prod --base-href https://tfaster.github.io/extended-cdk-selection/
+after_success:
+  - codecov
 deploy:
   provider: pages
   skip_cleanup: true # To avoid cleanup of the artifact generated during script
