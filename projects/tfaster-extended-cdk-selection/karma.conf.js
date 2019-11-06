@@ -21,6 +21,13 @@ module.exports = function (config) {
       fixWebpackSourcePaths: true
     },
     reporters: ['progress', 'kjhtml'],
+
+    // required to tell IntelliJ IDEA the path to the lcov.info file for IDE integration
+    coverageReporter: {
+      type: 'lcov',
+      dir: require('path').join(__dirname, '../../coverage/tfaster-extended-cdk-selection')
+    },
+
     port: 9876,
     colors: true,
     logLevel: config.LOG_INFO,
