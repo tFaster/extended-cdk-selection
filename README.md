@@ -1,5 +1,6 @@
 ![npm (scoped)](https://img.shields.io/npm/v/@tfaster/extended-cdk-selection?label=@tfaster/extended-cdk-selection&style=flat-square)
 [![Build Status](https://travis-ci.org/tFaster/extended-cdk-selection.svg?branch=master)](https://travis-ci.org/tFaster/extended-cdk-selection)
+[![codecov](https://codecov.io/gh/tFaster/extended-cdk-selection/branch/master/graph/badge.svg)](https://codecov.io/gh/tFaster/extended-cdk-selection)
 ![GitHub](https://img.shields.io/github/license/tFaster/extended-cdk-selection?style=flat-square)
 
 # Extended CDK Selection
